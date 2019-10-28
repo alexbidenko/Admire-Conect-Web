@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Admire - Место для каждого</title>
+    <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Карта, интересные места, провести время, куда сходить">
+    <meta name="description"
+        content="Сайт даст возможность и информацию для любого желающего узнать, куда можно сходить, как провести время и с кем провести время">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, shrink-to-fit=no" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Nunito&amp;subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1549984893" />
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+
+    <link rel="stylesheet" href="css/index.css">
+
+    <style type="text/css">
+        #c {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: white;
+            z-index: -1;
+        }
+        
+@media only screen and (max-width: 991px) {
+    .cycle img {
+        width: 40px;
+    }
+    .cycle {
+        padding: 12px;
+    }
+    .plomb {
+        display: none;
+    }
+}
+    </style>
+
+    <script type="text/javascript">
+    </script>
+</head>
+
+<body>
+
+    <div id="AdmireApp">
+
+        <header>
+            <nav>
+                <div class="nav-wrapper">
+                    <div class="plomb"></div>
+                    <ul id="nav-mobile" class="right">
+                        <li><a href="/map">Карта</a></li>
+                        <li><a href="/regist">Регистрация</a></li>
+                        <li><a href="#"><span class="d-none d-md-inline">Личный</span> кабинет</a></li>
+                        <li><a href="/correct">Запись</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+        </header>
+
+        <div class="position-absolute logofull">
+            <div class="cycle"><img src="images/logo.png"></div>
+        </div>
+
+
+
+        <div class="row valign-wrapper grey lighten-5 z-depth-2 my-5 pb-3 container sliderfirst"
+            style="border-radius: 8px;">
+            <h2 class="mx-4 h4 lead my-2"></h2>
+            <div class="slider">
+                <ul class="slides">
+                    <li>
+                        <img src="https://pp.userapi.com/c853424/v853424105/1b065/ezjv3ZtspEI.jpg">
+                        <div class="caption center-align" style="color:black; text-shadow: 1px 1px 2px black">
+                            <h3>Admire Сonect</h3>
+                            <h5 class="black-text">Активная жизнь начинается здесь!</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://pp.userapi.com/c845121/v845121062/1de460/eghuNx2_yvI.jpg">
+                        <div class="caption left-align" style="color:black; text-shadow: 1px 1px 2px black">
+                            <h3>СОЦСЕТИ</h3>
+                            <h5 class="black-text">Ваши посты на нашей карте!</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://pp.userapi.com/c845121/v845121062/1de538/CI4FENO29Mw.jpg">
+                        <div class="caption right-align" style="color:black; text-shadow: 1px 1px 2px black">
+                            <h3>ПОГОДА</h3>
+                            <h5 class="black-text">Мы поможем выбрать лучшие условия для вашей
+                                встречи.
+                                Наш сервис покажет вам погоду, а также проложит маршрут в любое место мира. </h5>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card container mx-auto mt-5">
+
+            <div class="card-body">
+                <h5 class="card-title">О цели Admire Conect</h5>
+                <p class="card-text">
+                    <p>Идея проекта вывести взаимодействия людей на новый уровень.<br>Бездумное использование социальных
+                        сетей приводит к десоциализации пользователей, люди начинают видеть посты, а не людей.</p>
+                    <p>AdmaireConect даёт возможность увидеть, почувствовать, встретится с людьми, прямо здесь и
+                        сейчас.</p>
+                    <p>Ваши друзья рядом, общайтесь с ними!</p>
+                    <p class="mobapp">Установить мобильное приложение</p>
+                    <div class="lineblack"></div>
+                    <div class="button0"><a href="admire.apk" class="waves-effect waves-light btn button1">Скачать на андроид</a></div>
+                </p>
+            </div>
+        </div>
+
+        <div class="grid-posts">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-img-top1"></div>
+                            <div class="card-body">
+                                <h3 class="post-category">Новые знакомства</h3>
+                                <p class="card-text">Найди новых друзей с которми ты сможешь познакомиться.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-img-top2"></div>
+                            <div class="card-body">
+                                <h3 class="post-category">Наш ресурс поможет вам узнать погоду</h3>
+                                <p class="card-text">Узнайте погоду, для встречи с друзьями в хорошую погоду,чтобы
+                                    провести это время с удовольствием.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-img-top3"></div>
+                            <div class="card-body">
+                                <h3 class="post-category">Большая база данных</h3>
+                                <p class="card-text">Лучшие места со всей планеты.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-img-top4"></div>
+                            <div class="card-body">
+                                <h3 class="post-category">Ваши социальные сети на карте</h3>
+                                <p class="card-text">Мы делаем людей ближе.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<button type="button" class="btn btn-success load-more">
+        Успех
+        </button>-->
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row m-0">
+                    <div class="col l6 s12">
+                        <h5 class="black-text">Свяжитесь с нами</h5>
+                        <p class="black-text text-lighten-4">Напишите нам, если вам стал интересен наш продукт</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="black-text">Контакты:</h5>
+                        <ul>
+                            <li><a class="black-text text-lighten-3" href="mailto:alexbidenko1998@gmail.com"><img
+                                        src="https://cdn2.iconfinder.com/data/icons/social-icons-color/512/gmail-512.png"
+                                        alt="..." class="icon1">
+                                </a>
+                            </li>
+                            <li><a class="black-text text-lighten-3" href="https://wa.me/79528313364"><img
+                                        src="https://cdn4.iconfinder.com/data/icons/social-media-2182/512/whatsapp__social__media__social_media__-512.png"
+                                        alt="..." class="icon2">
+                                </a>
+                            </li>
+                            <li><a class="black-text text-lighten-3" href="https://vk.com/alexbidenko"><img
+                                        src="https://cdn0.iconfinder.com/data/icons/social-network-7/50/11-512.png"
+                                        alt="..." class="icon3">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+
+    </div>
+
+    <canvas id=c></canvas>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="components/jquery.particleground.js"></script>
+    <script src="components/can_1.js"></script>
+    <script src="js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.slider');
+            var instances = M.Slider.init(elems, {
+                interval: 15000
+            });
+        });
+
+        /*$("body").particleground({
+            dotColor: "#00e676",
+            lineColor: "#00e676",
+            onInit: function () {
+                $(this).find("canvas.pg-canvas").css({
+                    position: "fixed",
+                    zIndex: -1
+                });
+            }
+        });*/
+    </script>
+</body>
+
+</html>

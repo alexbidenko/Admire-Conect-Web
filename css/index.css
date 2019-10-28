@@ -1,0 +1,258 @@
+body {
+    min-width: 320px;
+    font-size: 20px;
+    color: #000;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Nunito', sans-serif;
+}
+
+/*adaptive*/
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: white;
+}
+
+/*adaptive*/
+
+a:hover {
+    color: #2bff00;
+    text-decoration: none;
+}
+
+/*header a::after {
+    content: "";
+    display: block;
+    width: 100%;
+    border-color: white;
+    height: 1px;
+}*/
+
+.nav-wrapper #nav-mobile a::after {
+    content: '';
+    display: block;
+    width: 100%;
+    background-color: #cccc;
+    height: 1px;
+    transform: scale(0);
+    transition: all 0.3s;
+}
+
+.nav-wrapper img {
+    padding-left: 40px;
+}
+
+nav {
+    width: 100%;
+    background-color: #00e676!important;
+}
+
+header {
+    margin-bottom: 200px;
+}
+
+.cycle {
+    border-radius: 50%;
+    padding: 30px;
+    background: radial-gradient(#00e676, #0d8f50);
+}
+
+.plomb {
+    background-color: #00e676;
+    height: 64px;
+    top: 0;
+    width: 20px;
+    z-index: 100;
+    position: absolute;
+    left: 250px;
+}
+
+.logofull {
+    top: 0;
+    background: #00e676;
+    border-bottom-right-radius: 50%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    /*z-index: 20; 
+    top: 0; 
+    left: 0; 
+    padding-bottom: 16px;
+    padding-top: 16px;
+    padding-left: 16px;
+    border-bottom-right-radius: 55%;*/
+}
+
+.logofull img {
+    width: 200px;
+    height: auto;
+}
+
+.brand-logo {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 30px;
+    color: #000;
+    text-transform: uppercase;
+    margin-left: 20px;
+}
+
+#nav-mobile {
+    margin-right: 20px;
+}
+
+#nav-mobile li {
+    text-transform: uppercase;
+}
+
+.grid-posts {
+    margin-top: 150px;
+}
+
+.container p {
+    font-size: 14px;
+}
+
+.container .post-category {
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.container .link-more {
+    color: #000000;
+}
+
+.grid-posts {
+    margin-top: 70px;
+    margin-bottom: 100px;
+}
+
+.grid-posts .card {
+    border: 0;
+    margin-bottom: 50px;
+}
+
+.grid-posts .card-body {
+    padding-left: 10px;
+    padding-right: 0;
+}
+
+.grid-posts .card-img-top {
+    max-height: 350px;
+    border-radius: 0;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.card {
+    box-shadow: 1px;
+    border: 1px black;
+    border-radius: 8px;
+}
+
+.mobapp {
+    text-align: center;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: bold;
+}
+
+.lineblack {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    margin-bottom: 18px;
+}
+
+.button1 {
+    display: inline-block;
+    background-color: #00e676!important;
+}
+
+.button0 {
+    text-align: center;
+}
+
+.card-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.card .card-title, .page-footer p, .card-body .card-text, .post-category {
+    font-family: 'Noto Sans', sans-serif;
+    color: #2b2a2ad8;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.post-category {
+    font-weight: bold;
+}
+
+.card-body h3 {
+    padding-left: 5px;
+    margin: 0;
+}
+
+.card-body .card-title {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.card-img-top1, .card-img-top2, .card-img-top3, .card-img-top4 {
+    width: 100%;
+    height: 320px;
+    border-radius: 8px;
+}
+
+.card-img-top1 {
+    background: url(https://pp.userapi.com/c851236/v851236066/f0d69/36Z00eagPAI.jpg) no-repeat center/cover;
+}
+
+.card-img-top2 {
+    background: url(https://pp.userapi.com/c853628/v853628583/1d20a/wyXHcdo1ajA.jpg) no-repeat center/cover;
+}
+
+.card-img-top3 {
+    background: url(https://pp.userapi.com/c856132/v856132248/10949/T6PodcCTEEk.jpg) no-repeat center/cover;
+}
+
+.card-img-top4 {
+    background: url(https://pp.userapi.com/c844520/v844520986/1db63f/G1HPvI2Nqe0.jpg) no-repeat center/cover;
+}
+
+.icon1, .icon2, .icon3 {
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin-top: 8px;
+}
+
+.page-footer {
+    background-color: #00e676!important;
+    background: radial-gradient(30% 50%, #72ff00, #00e676);
+}
+
+/* Large Devices, Wide Screens */
+
+@media only screen and (max-width: 1200px) {}
+
+@media only screen and (max-width: 1199px) {}
+
+/* Medium Devices, Desktop */
+
+@media only screen and (max-width: 992px) {}
+
+@media only screen and (max-width: 991px) {}
+
+@media only screen and (max-width: 768px) {}
+
+@media only screen and (max-width: 767px) {}
+
+@media only screen and (max-width: 575px) {}
+
+/* Extra Small Devices, Phones */
+
+@media only screen and (max-width: 480px) {}

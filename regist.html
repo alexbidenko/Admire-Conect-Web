@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+    <title>Admire - Добро пожаловать к нам</title>
+    <link rel="shortcut icon" href="site-images/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Карта, интересные места, провести время, куда сходить, регистрация">
+    <meta name="description" content="Сайт даст возможность и информацию для любого желающего узнать, куда можно сходить, как провести время и с кем провести время, регистрация на сайте">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, shrink-to-fit=no" />
+    <link rel="stylesheet" type="text/css" href="//js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1549984893" />
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+    
+    <link rel="stylesheet" href="css/regist.css">
+    <style type="text/css">
+        body {
+            height: 100Vh;
+        }
+        .btn-flat:hover {
+            text-decoration: none;
+        }
+        .btn.active {
+            background-color: #00e676!important;
+        }
+        
+        input, h2 {
+            /*color: white!important;*/
+        }
+        input.validate:focus, .chips.focus {
+            border-color: #424242 !important;
+        }
+        .character-counter, label.active, .prefix.active {
+            color: #424242 !important;
+        }
+        .enter {
+            text-align: center;
+            background: #00e676!important;
+        }
+        #c {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: white;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    
+<div id="SeaplApp">
+
+<div class="position-fixed d-inline z-depth-2" style="top: 0; left: 0; z-index: 100; 
+        border-bottom-right-radius: 16px; background: #00e676;">
+    <a class="waves-effect waves-light btn-flat text-white" href="/">
+        <i class="material-icons left">arrow_back</i><span class="d-none d-lg-inline">Главная</span>
+    </a>
+</div>
+
+<div class="container card-panel mx-auto grey lighten-5 p-0 z-depth-2 mt-5" style="border-radius: 16px;">
+    <div class="btn-group btn-group-toggle w-100 row m-0 pb-1" style="border-top-left-radius: 16px; 
+        border-top-right-radius: 16px; overflow: hidden;" data-toggle="buttons">
+        <label class="btn waves-effect waves-light white active col s6" @click="is_enter_or_regist=true"
+            style="color: black;">
+            <input type="radio" name="options" autocomplete="off" checked> Вход
+        </label>
+        <label class="btn waves-effect waves-light white col s6" @click="is_enter_or_regist=false"
+            style="color: black;">
+            <input type="radio" name="options" autocomplete="off"> Регистрация
+        </label>
+    </div>
+    <div v-show="!is_enter_or_regist" class="card-content w-100 p-4">
+        <form>
+            <div class="input-field">
+                <i class="material-icons prefix">insert_emoticon</i>
+                <input id="icon_prefix" name="login" type="text" class="validate" v-model="login" required>
+                <label for="icon_prefix">Логин</label>
+            </div>
+            <div class="input-field">
+                <input id="icon_first_name" name="first_name" type="text" class="validate" v-model="first_name" required>
+                <label for="icon_first_name">Имя</label>
+            </div>
+            <div class="input-field">
+                <input id="icon_last_name" name="last_name" type="text" class="validate" v-model="last_name" required>
+                <label for="icon_last_name">Фамилия</label>
+            </div>
+            <div class="row m-0">
+                <label>
+                    <input name="sex" type="radio" value="famale" v-model="sex" required />
+                    <span>Девушка</span>
+                </label>
+                <label>
+                    <input name="sex" type="radio" value="male" v-model="sex" required />
+                    <span>Парень</span>
+                </label>
+            </div>
+            <div class="input-field">
+                <i class="material-icons prefix">mail_outline</i>
+                <input id="icon_email" name="email" type="email" class="validate" v-model="email" required>
+                <label for="icon_email">email</label>
+            </div>
+            <!--div class="input-field">
+                <i class="material-icons prefix black-text">account_balance</i>
+                <input id="icon_country" name="country" type="text" class="validate black-text" v-model="country" required>
+                <label for="icon_country">Страна</label>
+            </div-->
+            <div class="input-field">
+                <input id="icon_city" name="city" type="text" class="validate" v-model="city" required>
+                <label for="icon_city">Город</label>
+            </div>
+            <div class="input-field">
+                <i class="material-icons prefix">lock_outline</i>
+                <input id="icon_password" name="password" type="password" class="validate" v-model="password" required>
+                <label for="icon_password">Пароль</label>
+            </div>
+            <div class="input-field">
+                <i class="material-icons prefix">replay</i>
+                <input id="icon_pass_double" name="pass_double" type="password" class="validate" v-model="pass_double" required>
+                <label for="icon_pass_double">Повторите пароль</label>
+            </div>
+        </form>
+    </div>
+    <div v-show="is_enter_or_regist" class="card-content w-100 p-4">
+        <form>
+            <div class="input-field">
+                <i class="material-icons prefix">insert_emoticon</i>
+                <input id="icon_login_enter" type="text" class="validate" v-model="login_enter" required>
+                <label for="icon_login_enter">Логин</label>
+            </div>
+            <div class="input-field">
+                <i class="material-icons prefix">lock_outline</i>
+                <input id="icon_password_enter" type="password" class="validate" v-model="password_enter" required>
+                <label for="icon_password_enter">Пароль</label>
+            </div>
+        </form>
+    </div>
+    <div v-if="(text_message!='')" class="container-fluid px-4">
+        <div class="alert alert-warning" role="alert">{{text_message}}</div>
+    </div>
+    <hr class="white m-0" />
+    <div class="w-100 p-4 enter">
+        <button class="btn-flat waves-effect waves-light" @click="Sing">{{text_enter_button}}</button>
+    </div>
+</div>
+    
+</div>
+
+<canvas id=c></canvas>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="components/jquery.particleground.js"></script>
+<script src="components/can_1.js"></script>
+    
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.sidenav').sidenav();
+    });
+        
+    var SeaplApp = new Vue({
+        el: '#SeaplApp',
+        data: {
+            is_enter_or_regist: true,
+            text_enter_button: "Вход",
+            text_message: "",
+    
+            login: "",
+            first_name: "",
+            last_name: "",
+            sex: "",
+            email: "",
+            country: "Россия",
+            city: "",
+            password: "",
+            pass_double: "",
+    
+            login_enter: "",
+            password_enter: ""
+        },
+        created() {
+        },
+        methods: {
+            SaveRegion: function() {
+                localStorage.setItem('city', this.city);
+            },
+            Sing: function() {
+                this.text_message = ""
+                $.ajax({
+                    url: this.is_enter_or_regist ? "https://admire.social/back/login.php" : "https://admire.social/back/regist.php",
+                    type: "POST",
+                    data: this.$data,
+                    success: function(data) {
+                        if(data.substring(0, 4) == "well") {
+                            let user_data = JSON.parse(data.substring(4))
+                            localStorage.setItem('id', user_data['id']);
+                            localStorage.setItem('city', user_data['city']);
+                            if (SeaplApp.is_enter_or_regist) {
+                                localStorage.setItem('login', SeaplApp.login_enter);
+                                localStorage.setItem('password', SeaplApp.password_enter);
+                            } else {
+                                localStorage.setItem('login', SeaplApp.login);
+                                localStorage.setItem('password', SeaplApp.password);
+                            }
+                            if(localStorage.getItem('old_page')) {
+                                let page = localStorage.getItem('old_page');
+                                localStorage.removeItem('old_page');
+                                location.href = page;
+                            } else {
+                                location.href = "/";
+                            }
+                        } else if (data == "no_login_or_pass") SeaplApp.text_message = "Неверный логин или пароль.";
+                        else if (data == "no_pass") SeaplApp.text_message = "Пароли не совпадают.";
+                        else if (data == "no_login") SeaplApp.text_message = "Выбрами Вами логин уже занят.";
+                        else if (data == "no_email") SeaplApp.text_message = "Выбрами Вами email уже зарегистрирован.";
+                    }
+                });
+            }
+        },
+        watch: {
+            is_enter_or_regist: function (val) {
+                if(val) {
+                    this.text_enter_button = "Вход";
+                } else {
+                    this.text_enter_button = "Регистрация";
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

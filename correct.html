@@ -1,0 +1,329 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Admire - Добро пожаловать к нам</title>
+    <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Карта, интересные места, провести время, куда сходить, регистрация">
+    <meta name="description"
+        content="Сайт даст возможность и информацию для любого желающего узнать, куда можно сходить, как провести время и с кем провести время, регистрация на сайте">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, shrink-to-fit=no" />
+    <link rel="stylesheet" type="text/css" href="//js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1549984893" />
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Nunito+Sans:200" rel="stylesheet">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+
+    <link rel="stylesheet" href="css/regist.css">
+    <style type="text/css">
+    .table-c {background-color: #00e676}
+    .namelogo {
+        margin-top: 20px;
+        margin-bottom: 40px;
+        border-radius: 10px;
+        background-color: white;
+        text-align: center;
+        padding: 30px 0;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.863);
+    }
+    .namelogo p {
+        margin-top: 15px;
+    }
+    </style>
+
+    <script type="text/javascript">
+
+        Vue.component('social-block', {
+            props: ['data', 'active', 'coords'],
+            template: `
+                    <div class="card" style="min-width: 40%!important;" @click="$emit('active', data.id)" :class="{'teal': (active == data.id)}">
+                        <div class="card-image">
+                            <img :src="data.attachments[0].photo.photo_604">
+                            <span class="card-title"></span>
+                            
+                        </div>
+                        <div class="card-content">
+                            <p>{{data.text}}</p>
+                            <p v-if="!!coords['id_' + data.id]">{{coords['id_' + data.id].addres}}</p>
+                        </div>
+                    </div>
+        `
+        });
+
+    </script>
+</head>
+
+<body>
+
+    <div id="AdmireApp">
+
+        <div class="container-fluid p-0">
+            <div class="row m-0">
+                <div class="col-6 table-c">
+                    <div class="container-fluid">
+                        <div class="namelogo">Посты
+                            <p>Выбери пост ,и отметить его на карте</p>
+                        </div>
+                        <div class="card-deck">
+                            <social-block v-for="(report, index) in user_wall_data.response.items" :key="index"
+                                :data="report" v-if="(!!report.attachments)" :active="active" @active="active=$event"
+                                :coords="coords"></social-block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn position-fixed" style="top: 0; right: 0; z-index: 4;" @click="SaveData">Сохранить</button>
+
+    </div>
+
+    <div id="map" class="position-fixed" style="width: 50%; height: 100vh; top: 0; right: 0;"></div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script type="text/javascript">
+
+        var platform = new H.service.Platform({
+            app_id: 'UdRH6PlISTlADYsW6mzl',
+            app_code: 'lfrrTheP9nBedeJyy1NtIA',
+            useHTTPS: true
+        });
+
+        var pixelRatio = window.devicePixelRatio || 1;
+        var defaultLayers = platform.createDefaultLayers({
+            lg: 'rus',
+            tileSize: pixelRatio === 1 ? 256 : 512,
+            ppi: pixelRatio === 1 ? undefined : 320
+        });
+
+        var map = new H.Map(
+            document.getElementById('map'),
+            defaultLayers.normal.map,
+            {
+                zoom: 11,
+                center: { lat: 44.73, lng: 37.76 }
+            },
+            {
+                pixelRatio: pixelRatio
+            });
+
+        var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+        var ui = H.ui.UI.createDefault(map, defaultLayers, 'ru-RU');
+
+        var mapSettings = ui.getControl('mapsettings');
+        var zoom = ui.getControl('zoom');
+        var scalebar = ui.getControl('scalebar');
+
+        mapSettings.setAlignment('bottom-right');
+        zoom.setAlignment('bottom-right');
+        scalebar.setAlignment('bottom-right');
+
+        let ChangePlaceMarker;
+
+        function AddPlacePoint(position) {
+            ChangePlaceMarker = new H.map.Marker(position);
+            searched_group.addObject(ChangePlaceMarker);
+        }
+
+        function geocodeByCoord(platform, lat, lng) {
+
+            var geocoder = platform.getGeocodingService(),
+                geocodingParameters = {
+                    prox: lat + ',' + lng + ',1',
+                    mode: 'retrieveAddresses',
+                    maxresults: 1
+                };
+
+            geocoder.reverseGeocode(
+                geocodingParameters,
+                onSuccessByCoord,
+                onError
+            );
+        }
+
+        let bubble;
+
+        function openBubble(position, text) {
+            if (!bubble) {
+                bubble = new H.ui.InfoBubble(
+                    position,
+                    { content: text });
+                ui.addBubble(bubble);
+            } else {
+                bubble.setPosition(position);
+                bubble.setContent(text);
+                bubble.open();
+            }
+        }
+
+        var searched_group = new H.map.Group();
+        map.addObject(searched_group);
+
+        function onSuccessByCoord(result) {
+            if (!!result.Response.View[0]) {
+                var location = result.Response.View[0].Result[0];
+                if (AdmireApp.active != -1) {
+                    AdmireApp.$set(AdmireApp.coords['id_' + AdmireApp.active], 'addres', location.Location.Address.Label);
+                }
+                ChangePlaceMarker.label = location.Location.Address.Label;
+            }
+        }
+
+        searched_group.addEventListener('tap', function (evt) {
+            map.setCenter(evt.target.getPosition());
+            openBubble(
+                evt.target.getPosition(), evt.target.label);
+
+            is_focus = true;
+        }, false);
+
+        function onError(error) { }
+
+        map.addEventListener('tap', function (evt) {
+            var coord = map.screenToGeo(evt.currentPointer.viewportX,
+                evt.currentPointer.viewportY);
+
+            if (AdmireApp.active != -1) {
+                AdmireApp.$set(AdmireApp.coords, 'id_' + AdmireApp.active, {
+                    id: AdmireApp.active,
+                    addres: "",
+                    coords: [
+                        coord.lat,
+                        coord.lng
+                    ],
+                    data: {}
+                });
+
+                for (let i in AdmireApp.user_wall_data.response.items) {
+                    if (AdmireApp.user_wall_data.response.items[i].id == AdmireApp.active) {
+                        AdmireApp.$set(AdmireApp.coords['id_' + AdmireApp.active], 'data',
+                            AdmireApp.user_wall_data.response.items[i]);
+                    }
+                }
+            }
+
+            geocodeByCoord(platform, coord.lat, coord.lng);
+
+            searched_group.removeAll();
+            position = {
+                lat: coord.lat,
+                lng: coord.lng
+            };
+            AddPlacePoint(position);
+        });
+
+        var AdmireApp = new Vue({
+            el: '#AdmireApp',
+            data: {
+                id: null,
+                login: localStorage.getItem('login'),
+                password: localStorage.getItem('password'),
+                user_data: {},
+                social: [],
+                user_wall_data: {
+                    response: {
+                        items: []
+                    }
+                },
+                active: -1,
+                coords: {}
+            },
+            created() {
+                $.ajax({
+                    url: "https://admire.social/back/get-user.php",
+                    type: "POST",
+                    data: { login: this.login, password: this.password },
+                    success: function (data) {
+                        AdmireApp.user_data = JSON.parse(data);
+                        AdmireApp.social = JSON.parse(AdmireApp.user_data.social);
+                        for (let i in AdmireApp.social) {
+                            if (AdmireApp.social[i].type == "vk") {
+                                let prev_id = AdmireApp.social[i].value.split('/');
+                                prev_id = prev_id[prev_id.length - 1];
+                                $.ajax({
+                                    url: 'php/get-wall.php',
+                                    type: "POST",
+                                    data: {
+                                        url: `https://api.vk.com/method/utils.resolveScreenName?screen_name=${prev_id}&v=5.52&access_token=cdea1de80818855c4b304deed782e4b470adac74377ae145788fe219b8fdffc1505f1012ea377b4213330`
+                                    },
+                                    success: function (data) {
+                                        let ans = JSON.parse(data);
+                                        AdmireApp.id = ans.response.object_id;
+                                        $.ajax({
+                                            url: 'php/get-wall.php',
+                                            type: "POST",
+                                            data: {
+                                                url: `https://api.vk.com/method/wall.get?owner_id=${AdmireApp.id}&v=5.52&access_token=cdea1de80818855c4b304deed782e4b470adac74377ae145788fe219b8fdffc1505f1012ea377b4213330`
+                                            },
+                                            success: function (data) {
+                                                AdmireApp.user_wall_data = JSON.parse(data);
+                                                console.log(AdmireApp.user_wall_data);
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            url: 'php/all_posts_data.json',
+                                            type: "GET",
+                                            success: function (data) {
+                                                data = JSON.parse(data);
+                                                console.log(data);
+                                                for (let i in data) {
+                                                    if (+data[i].user_id == +AdmireApp.id) {
+                                                        AdmireApp.coords = data[i].data;
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            },
+            methods: {
+                SaveData: function () {
+                    let ans = {
+                        user_id: this.id,
+                        data: this.coords
+                    }
+
+                    $.ajax({
+                        url: 'php/save-posts.php',
+                        type: "POST",
+                        data: {
+                            data: JSON.stringify(ans)
+                        },
+                        success: function (data) {
+                            if (data == "well") alert("Данные сохранены");
+                        }
+                    });
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+php_value default_charset utf-8 
+AddType 'text/html; charset=utf-8' .html .htm .shtml
+Header set Access-Control-Allow-Origin "*"
+
+DirectoryIndex index.html index.php
+
+AddType application/x-httpd-php .php .html .css
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/ 
+RewriteRule ^index\.html$ http://admire-conect.tw1.ru/ [R=301,L] 

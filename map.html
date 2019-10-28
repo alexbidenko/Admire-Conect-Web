@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Admire - Место для каждого</title>
+    <link rel="shortcut icon" href="site-images/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Карта, интересные места, провести время, куда сходить">
+    <meta name="description"
+        content="Сайт даст возможность и информацию для любого желающего узнать, куда можно сходить, как провести время и с кем провести время">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, shrink-to-fit=no" />
+    <link rel="stylesheet" type="text/css" href="//js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1549984893" />
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="//js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+    <script src="//js.api.here.com/v3/3.0/mapsjs-pano.js" type="text/javascript" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+
+    <link rel="stylesheet" href="css/map.css">
+    <style type="text/css">
+        .top-panel {
+            width: calc(100% - 200px);
+            left: 40px;
+            z-index: 1;
+            padding: 12px 0 0 12px;
+        }
+        
+        .place-icon {
+            border: 1px solid #666;
+            margin-top: -78px;
+            margin-left: -25px;
+            height: 50px;
+            width: 50px;
+        }
+        .place-icon-arrow {
+            border: 18px solid transparent;
+            border-top: 18px solid #444;
+            margin-left: -18px;
+            margin-top: -18px;
+            width: 0;
+        }
+        .top-right {
+            background-color: rgba(200, 200, 200, .7);
+            box-shadow: 0 2px 8px 0 #777;
+            display: inline-block;
+            padding: 8px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 5;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .weather-more {
+            display: none;
+        }
+        .top-right:hover .weather-more {
+            display: block;
+        }
+        .sidenav {
+            width: 400px!important;
+        }
+    </style>
+
+    <script type="text/javascript">
+    </script>
+</head>
+
+<body>
+
+    <div id="AdmireApp">
+        <a href="#" data-target="slide-out" class="sidenav-trigger d-block position-fixed btn-flat"
+            style="top: 0; left: 0; z-index: 2;" @click="OpenSidenav(true)"><i class="material-icons">menu</i></a>
+
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="container-fluid p-0">
+                    <div class="row m-0">
+                        <div class="col-6">
+                            <a href="/">Главная</a>
+                        </div>
+                        <div class="col-6">
+                            <a class="sidenav-close" @click="OpenSidenav(false)">Закрыть</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <p>Здесь будет наглядный отсортированный список предлагающихся мест
+                <div class="left-block">
+                    <div class="green accent-3 people">
+                        <p>Люди</p>
+                    </div>
+
+                    <user-block v-for="(user, index) in data" :key="index" :data="user" v-if="(index < 3)"></user-block>
+
+                    <div class="green accent-3 record">
+                        <p>Записи</p>
+                    </div>
+
+                    <h1>ADMIRE</h1>
+                    <admire-block v-for="(place, index) in places" :key="index" :data="place" v-if="(index < 3)"></admire-block>
+                    <div class="green accent-3 other-place">
+                        <p>Общественные места</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="top-panel position-fixed">
+            <div class="chip">
+                <p>
+                    <label>
+                        <input type="checkbox" v-model="posts" />
+                        <span>Посты</span>
+                    </label>
+                </p>
+            </div>
+            <div class="chip">
+                <p>
+                    <label>
+                        <input type="checkbox" v-model="admire" />
+                        <span>Admire</span>
+                    </label>
+                </p>
+            </div>
+            <div class="chip">
+                <p>
+                    <label>
+                        <input type="checkbox" v-model="eat_drink" />
+                        <span>Поесть</span>
+                    </label>
+                </p>
+            </div>
+            <div class="chip">
+                <p>
+                    <label>
+                        <input type="checkbox" v-model="going_out" />
+                        <span>Погулять</span>
+                    </label>
+                </p>
+            </div>
+            <div class="chip">
+                <p>
+                    <label>
+                        <input type="checkbox" v-model="museums" />
+                        <span>Музеи</span>
+                    </label>
+                </p>
+            </div>
+            <div class="chip">
+                <p>
+                    <label>
+                        <input type="checkbox" v-model="leisure_outdoor" />
+                        <span>Досуг</span>
+                    </label>
+                </p>
+            </div>
+            <div class="chip">
+                <p>
+                    <label>
+                        <input type="checkbox" v-model="natural_geographical" />
+                        <span>Природа</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+        <div class="parent-weather top-right">
+            <div class="text-center" v-if="!!weather">
+                <p>{{weather.dailyForecasts.forecastLocation.forecast[0].weekday}}</p>
+                <img :src="weather.dailyForecasts.forecastLocation.forecast[0].iconLink">
+                <p>{{weather.dailyForecasts.forecastLocation.forecast[0].description}}</p>
+                <p>от 
+                    <span class="weather-t-b rounded" 
+                        :style="'background: rgb(' + ((+weather.dailyForecasts.forecastLocation.forecast[0].lowTemperature + 20) * 5) + ',' + 
+                        ((+weather.dailyForecasts.forecastLocation.forecast[0].lowTemperature + 20) * 5) + ',' + 
+                        (-(+weather.dailyForecasts.forecastLocation.forecast[0].lowTemperature - 20) * 5) + ')'">{{weather.dailyForecasts.forecastLocation.forecast[0].lowTemperature}}</span> до 
+                    <span class="weather-t-b rounded"
+                        :style="'background: rgb(' + ((+weather.dailyForecasts.forecastLocation.forecast[0].highTemperature + 20) * 5) + ',' + 
+                        ((+weather.dailyForecasts.forecastLocation.forecast[0].highTemperature + 20) * 5) + ',' + 
+                        (-(+weather.dailyForecasts.forecastLocation.forecast[0].highTemperature - 20) * 5) + ')'">{{weather.dailyForecasts.forecastLocation.forecast[0].highTemperature}}</span> °C
+                </p>
+            </div>
+            <div class="text-center weather-more" v-if="!!weather" v-for="(forecast, index) in weather.dailyForecasts.forecastLocation.forecast">
+                <div v-if="(index > 0)">
+                    <div class="w-100 black" style="height: 1px;"></div>
+                    <p>{{forecast.weekday}}</p>
+                    <img :src="forecast.iconLink">
+                    <p>{{weather.dailyForecasts.forecastLocation.forecast[0].description}}</p>
+                    <p>от 
+                        <span class="weather-t-b rounded" 
+                            :style="'background: rgb(' + ((+forecast.lowTemperature + 20) * 5) + ',' + 
+                            ((+forecast.lowTemperature + 20) * 5) + ',' + 
+                            (-(+forecast.lowTemperature - 20) * 5) + ')'">{{forecast.lowTemperature}}</span> до 
+                        <span class="weather-t-b rounded"
+                            :style="'background: rgb(' + ((+forecast.highTemperature + 20) * 5) + ',' + 
+                            ((+forecast.highTemperature + 20) * 5) + ',' + 
+                            (-(+forecast.highTemperature - 20) * 5) + ')'">{{forecast.highTemperature}}</span> °C
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu-add" style="position: fixed; display: none; transform: translate(-50%, -50%); z-index: 20;">
+            <div class="btn-floating p3 d-inline-block" @click="CreateRoute">
+                <i class="material-icons">swap_calls</i>
+            </div>
+            <div id="connect-add" class="btn-floating p3" style="display: none;" @click="CreateMeating">
+                <i class="material-icons">group</i>
+            </div>
+        </div>
+
+        <div class="teal position-fixed p-4" v-if="(is_route || is_meating)" style="bottom: 0; right: 0; z-index: 20;">
+            Выберите место на карте
+        </div>
+
+    </div>
+
+    <div style="width: 100%; height: 100vh;" id="map"></div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="components/jquery.particleground.js"></script>
+    <script src="js/map.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+        });
+
+        /*$(document).ready(function(){
+            $('.sidenav').sidenav();
+        });*/
+
+        // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
+        // var collapsibleElem = document.querySelector('.collapsible');
+        // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+
+        // Or with jQuery
+
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+
+    </script>
+</body>
+
+</html>

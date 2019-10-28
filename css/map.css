@@ -1,0 +1,46 @@
+.left-block {
+    width: 400px;
+    height: 100vh;
+    overflow-y: auto;
+    border: 1px solid;
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    background-color: white;
+}
+.left-block h1 {
+    font-size: 35px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.people {
+    text-align: center;
+    width: 100%;
+    height: 60px;   
+    margin-bottom: 35px;
+}
+.people p {
+    padding: 18px 0;
+}
+
+.record {
+    text-align: center;
+    height: 60px;
+    width: 100%;
+}
+
+.record p {
+    padding: 18px 0;
+}
+
+.other-place {
+    text-align: center;
+    height: 60px;
+    width: 100%;
+}
+
+.other-place p {
+    padding: 18px 0;
+}
+
